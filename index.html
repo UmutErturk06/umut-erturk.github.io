@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Umut Hasan Ertürk — Game & VR Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #f0f0f0;
+    --muted: #888;
+    --accent: #e8ff4a;
+    --accent2: #4affd4;
+    --font: 'Space Grotesk', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: radial-gradient(ellipse at 80% 50%, rgba(232,255,74,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+  h1 {
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+  h1 span {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(240,240,240,0.3);
+  }
+  .hero-desc {
+    max-width: 480px;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: #0a0a0a;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-secondary {
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--muted); transform: translateY(-2px); }
+
+  .hero-stats {
+    position: absolute; bottom: 3rem; right: 3rem;
+    display: flex; gap: 3rem;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-size: 2rem; font-weight: 700;
+    color: var(--accent); font-family: var(--mono);
+  }
+  .stat-label {
+    font-size: 0.75rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  /* ABOUT */
+  .about {
+    padding: 6rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: var(--border);
+  }
+  .about-text h2 {
+    font-size: 2rem; font-weight: 600;
+    line-height: 1.2; margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .about-text p {
+    color: var(--muted); line-height: 1.8;
+    font-size: 0.95rem; margin-bottom: 1rem;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    align-self: start;
+    margin-top: 3.5rem;
+  }
+  .skill-item {
+    background: var(--surface);
+    padding: 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .skill-dot {
+    width: 6px; height: 6px;
+    background: var(--accent2); flex-shrink: 0;
+  }
+  .skill-item span { font-size: 0.85rem; color: var(--text); }
+
+  /* PROJECTS */
+  .projects-section {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .projects-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; margin-bottom: 3rem;
+  }
+  .projects-header h2 {
+    font-size: 2.5rem; font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  .projects-header p {
+    color: var(--muted); font-size: 0.85rem;
+    max-width: 260px; text-align: right; line-height: 1.6;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px;
+    background: var(--border);
+  }
+  .project-card {
+    background: var(--surface);
+    display: flex; flex-direction: column;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card:hover { background: var(--surface2); }
+  .video-wrapper {
+    position: relative;
+    padding-top: 56.25%;
+    background: #000;
+    overflow: hidden;
+  }
+  .video-wrapper iframe {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+  .card-body { padding: 1.5rem; flex: 1; }
+  .card-number {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+  }
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .card-desc {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+  .card-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .tag {
+    font-size: 0.7rem;
+    font-family: var(--mono);
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .tag.accent {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-left { }
+  .footer-name {
+    font-size: 1.1rem; font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .footer-email {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .footer-right {
+    display: flex; gap: 1.5rem;
+  }
+  .footer-right a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .footer-right a:hover { color: var(--text); }
+
+  /* SCROLL FADE */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; opacity: 0; }
+  .delay-2 { animation-delay: 0.2s; opacity: 0; }
+  .delay-3 { animation-delay: 0.35s; opacity: 0; }
+  .delay-4 { animation-delay: 0.5s; opacity: 0; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 6rem 1.5rem 10rem; }
+    .hero-stats { right: 1.5rem; gap: 1.5rem; }
+    .about { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
+    .projects-section { padding: 4rem 1.5rem; }
+    .projects-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .projects-header p { text-align: left; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">UHE.DEV</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="https://www.linkedin.com/in/umut-erturk-775214253/" target="_blank">LinkedIn</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-tag fade-up">Game &amp; VR Developer — Ankara, Turkey</p>
+  <h1 class="fade-up delay-1">
+    Umut<br>
+    Hasan<br>
+    <span>Ertürk</span>
+  </h1>
+  <p class="hero-desc fade-up delay-2">
+    Unity ve C# ile Mobil ve VR oyunları geliştiriyorum.
+  </p>
+  <div class="hero-cta fade-up delay-3">
+    <a href="#projects" class="btn-primary">Projeleri Gör</a>
+    <a href="https://www.linkedin.com/in/umut-erturk-775214253/" target="_blank" class="btn-secondary">LinkedIn →</a>
+  </div>
+  <div class="hero-stats fade-up delay-4">
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">VR Proje</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Mobil Proje</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Yıl Deneyim</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <div class="about-text">
+      <p class="section-label">Hakkımda</p>
+      <h2>Oyunlar aracılığıyla öğrenmeyi yeniden tanımlıyorum.</h2>
+      <p>
+        Mobil hyper-casual oyunlardan ve eğitim amaçlı VR simülasyonlarına uzanan bir yolculukta Unity ve C# ile güçlü bir temel oluşturdum.
+      </p>
+      <p>
+        Edulog'daki son projem kapsamında öğrencilerin ortaöğretim ve lise deneylerini sanal ortamda gerçekleştirebildiği interaktif simülasyonlar geliştirdim. Veri analizi alanında kendimi geliştirmeye devam ediyorum.
+      </p>
+    </div>
+    <div>
+      <p class="section-label">Yetenekler</p>
+      <div class="skills-grid">
+        <div class="skill-item"><span class="skill-dot"></span><span>Unity</span></div>
+        <div class="skill-item"><span class="skill-dot"></span><span>C#</span></div>
+        <div class="skill-item"><span class="skill-dot"></span><span>VR Development</span></div>
+        <div class="skill-item"><span class="skill-dot"></span><span>Game Design</span></div>
+        <div class="skill-item"><span class="skill-dot"></span><span>Python</span></div>
+        <div class="skill-item"><span class="skill-dot"></span><span>JavaScript</span></div>
+        <div class="skill-item"><span class="skill-dot"></span><span>Java</span></div>
+        <div class="skill-item"><span class="skill-dot"></span><span>Robotics</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="projects-section">
+    <div class="projects-header">
+      <div>
+        <p class="section-label">Projeler</p>
+        <h2>VR Eğitim<br>Simülasyonları</h2>
+      </div>
+      <p>Öğrencilerin laboratuvar deneylerini güvenli ve interaktif bir sanal ortamda yapmasına olanak tanıyan projeler.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/l6epXhcxawc" title="Rezonans" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <p class="card-number">01 — FİZİK</p>
+          <h3 class="card-title">Rezonans</h3>
+          <p class="card-desc">Ses ve rezonans kavramlarını VR ortamında interaktif olarak keşfeden deney simülasyonu.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag accent">VR</span>
+            <span class="tag">Fizik</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/amJGnu4xHWg" title="Bakır Kaplama" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <p class="card-number">02 — KİMYA</p>
+          <h3 class="card-title">Bakır Kaplama</h3>
+          <p class="card-desc">Elektroliz yöntemiyle bakır kaplama deneyinin adım adım simüle edildiği VR laboratuvarı.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag accent">VR</span>
+            <span class="tag">Kimya</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/9d_GJqVy2wM" title="Canlıların Sınıflandırılması" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <p class="card-number">03 — BİYOLOJİ</p>
+          <h3 class="card-title">Canlıların Sınıflandırılması</h3>
+          <p class="card-desc">Canlı âlemlerini ve sınıflandırma sistemini VR dünyasında keşfetmeye olanak tanıyan etkileşimli simülasyon.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag accent">VR</span>
+            <span class="tag">Biyoloji</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/d2fuulKYdfY" title="Isı ve Öz Isı" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <p class="card-number">04 — FİZİK</p>
+          <h3 class="card-title">Isı &amp; Öz Isı</h3>
+          <p class="card-desc">Isı transferi ve öz ısı kavramlarının farklı maddeler üzerinde gözlemlendiği VR deney ortamı.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag accent">VR</span>
+            <span class="tag">Fizik</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/xrlG0E7CmbA" title="Difüzyon" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <p class="card-number">05 — BİYOLOJİ</p>
+          <h3 class="card-title">Difüzyon</h3>
+          <p class="card-desc">Madde geçişi ve difüzyon kavramının hücre zarı üzerinden interaktif biçimde gösterildiği simülasyon.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag accent">VR</span>
+            <span class="tag">Biyoloji</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/kCUvWJKz02c" title="Fermantasyon" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <p class="card-number">06 — KİMYA</p>
+          <h3 class="card-title">Fermantasyon</h3>
+          <p class="card-desc">Fermantasyon sürecinin kimyasal aşamalarının adım adım gözlemlendiği VR laboratuvar simülasyonu.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag accent">VR</span>
+            <span class="tag">Kimya</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <p class="footer-name">Umut Hasan Ertürk</p>
+    <a href="mailto:erturkumuthasan@gmail.com" class="footer-email">erturkumuthasan@gmail.com</a>
+  </div>
+  <div class="footer-right">
+    <a href="https://www.linkedin.com/in/umut-erturk-775214253/" target="_blank">LinkedIn</a>
+    <a href="tel:+905011598411">+90 501 159 84 11</a>
+    <span style="color: var(--border); font-size: 0.75rem; font-family: var(--mono);">© 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
