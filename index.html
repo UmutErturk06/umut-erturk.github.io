@@ -137,7 +137,7 @@
     position: absolute; bottom: 3rem; right: 3rem;
     display: flex; gap: 3rem;
   }
-  .stat { text-align: right; }
+  .stat { text-align: center; }
   .stat-num {
     font-size: 2rem; font-weight: 700;
     color: var(--accent); font-family: var(--mono);
@@ -334,15 +334,56 @@
     .projects-header p { text-align: left; }
     footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
   }
+/* 3D CUBE */
+  .cube-wrap {
+    position: absolute;
+    right: 15%; top: 70%;
+    transform: translateY(-60%);
+    width: 500px; height: 500px;
+    perspective: 600px;
+    pointer-events: none;
+  }
+  .cube {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 9s linear infinite;
+  }
+  @keyframes rotateCube {
+    from { transform: rotateX(22deg) rotateY(0deg); }
+    to   { transform: rotateX(22deg) rotateY(360deg); }
+  }
+  .face {
+    position: absolute;
+    width: 200px; height: 200px;
+    border: 1px solid var(--accent);
+    background: rgba(232,255,74,0.03);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .face.front  { transform: translateZ(100px); }
+  .face.back   { transform: rotateY(180deg) translateZ(100px); }
+  .face.left   { transform: rotateY(-90deg) translateZ(100px); }
+  .face.right  { transform: rotateY(90deg) translateZ(100px); }
+  .face.top    { transform: rotateX(90deg) translateZ(100px); }
+  .face.bottom { transform: rotateX(-90deg) translateZ(100px); }
+  .face-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    opacity: 0.7;
+  }
+  @media (max-width: 768px) { .cube-wrap { display: none; } }
 </style>
 </head>
 <body>
 
 <nav>
   <a href="#" class="nav-logo">UHE.DEV</a>
+  <a href="mailto:erturkumuthasan@gmail.com" class="nav-logo" style="font-size:0.7rem; opacity:0.6; letter-spacing:0.05em;">erturkumuthasan@gmail.com</a>
   <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
+    <a href="#about">Hakkımda</a>
+    <a href="#projects">Projelerim</a>
     <a href="https://www.linkedin.com/in/umut-erturk-775214253/" target="_blank">LinkedIn</a>
   </div>
 </nav>
@@ -360,6 +401,16 @@
   <div class="hero-cta fade-up delay-3">
     <a href="#projects" class="btn-primary">Projeleri Gör</a>
     <a href="https://www.linkedin.com/in/umut-erturk-775214253/" target="_blank" class="btn-secondary">LinkedIn →</a>
+  </div>
+  <div class="cube-wrap">
+    <div class="cube">
+      <div class="face front"><span class="face-label">UNITY</span></div>
+      <div class="face back"><span class="face-label">C#</span></div>
+      <div class="face left"><span class="face-label">VR</span></div>
+      <div class="face right"><span class="face-label">GAME DEV</span></div>
+      <div class="face top"><span class="face-label">MOBILE</span></div>
+      <div class="face bottom"><span class="face-label">AR</span></div>
+    </div>
   </div>
   <div class="hero-stats fade-up delay-4">
     <div class="stat">
@@ -523,17 +574,98 @@
   </div>
 </section>
 
+<section id="mobile">
+  <div class="projects-section">
+    <div class="projects-header">
+      <div>
+        <p class="section-label">Mobil Oyunlar</p>
+        <h2>Mobil<br>Hyper-Casual</h2>
+      </div>
+      <p>Unity'e ilk başladığım dönemden itibaren geliştirdiğim mobil oyun prototipleri.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/JXwKWxCVUsc" title="Mobil Prototip" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <p class="card-number">01 — MOBİL</p>
+          <h3 class="card-title">Mobil Prototip</h3>
+          <p class="card-desc">Unity'e ilk başladığım zamanlar yaptığım prototipler.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag">Mobile</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" style="opacity: 0.4;">
+        <div class="video-wrapper" style="display:flex; align-items:center; justify-content:center; background: var(--surface2);">
+          <div style="text-align:center; padding: 2rem;">
+            <p style="font-family: var(--mono); font-size: 2rem; color: var(--border);">+</p>
+            <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em; margin-top: 0.5rem;">YAKINDA</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-number">02 — MOBİL</p>
+          <h3 class="card-title">Yakında</h3>
+          <p class="card-desc">Video çekildikten sonra eklenecek.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag">Mobile</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" style="opacity: 0.4;">
+        <div class="video-wrapper" style="display:flex; align-items:center; justify-content:center; background: var(--surface2);">
+          <div style="text-align:center; padding: 2rem;">
+            <p style="font-family: var(--mono); font-size: 2rem; color: var(--border);">+</p>
+            <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em; margin-top: 0.5rem;">YAKINDA</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-number">03 — MOBİL</p>
+          <h3 class="card-title">Yakında</h3>
+          <p class="card-desc">Video çekildikten sonra eklenecek.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag">Mobile</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" style="opacity: 0.4;">
+        <div class="video-wrapper" style="display:flex; align-items:center; justify-content:center; background: var(--surface2);">
+          <div style="text-align:center; padding: 2rem;">
+            <p style="font-family: var(--mono); font-size: 2rem; color: var(--border);">+</p>
+            <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em; margin-top: 0.5rem;">YAKINDA</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-number">04 — MOBİL</p>
+          <h3 class="card-title">Yakında</h3>
+          <p class="card-desc">Video çekildikten sonra eklenecek.</p>
+          <div class="card-tags">
+            <span class="tag accent">Unity</span>
+            <span class="tag accent">C#</span>
+            <span class="tag">Mobile</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-left">
     <p class="footer-name">Umut Hasan Ertürk</p>
-    <a href="mailto:erturkumuthasan@gmail.com" class="footer-email">erturkumuthasan@gmail.com</a>
   </div>
   <div class="footer-right">
     <a href="https://www.linkedin.com/in/umut-erturk-775214253/" target="_blank">LinkedIn</a>
-    <a href="tel:+905011598411">+90 501 159 84 11</a>
-    <span style="color: var(--border); font-size: 0.75rem; font-family: var(--mono);">© 2026</span>
-  </div>
-</footer>
-
-</body>
-</html>
